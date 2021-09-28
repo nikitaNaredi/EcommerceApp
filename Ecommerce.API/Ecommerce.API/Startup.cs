@@ -1,5 +1,7 @@
 using Ecommerce.API.DataAccess;
 using Ecommerce.API.Repositories;
+using Ecommerce.Exceptions;
+using ECommerce.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,7 @@ namespace Ecommerce.API
         {
             services.AddSwaggerGen();
             services.AddControllers();
+            services.AddExceptions(Configuration);
             services.AddApiVersioning(x =>
             {
                 x.DefaultApiVersion = new ApiVersion(1, 0);
@@ -48,7 +51,7 @@ namespace Ecommerce.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ExceptionMiddleware errorWrappingMiddleware, ILogger<Startup> logger)
         {
             logger.LogInformation($"The Application is starting");
             if (env.IsDevelopment())
@@ -56,7 +59,7 @@ namespace Ecommerce.API
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors();
-            //app.Use(errorWrappingMiddleware.InvokeAsync); //TBD for exception
+            app.Use(errorWrappingMiddleware.InvokeAsync);
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
@@ -68,7 +71,8 @@ namespace Ecommerce.API
             app.UseSwaggerUI(swagger =>
             {
                 swagger.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce");
-            });
+            }); 
+           
             logger.LogInformation($"The Application is closed");
         }
     }
