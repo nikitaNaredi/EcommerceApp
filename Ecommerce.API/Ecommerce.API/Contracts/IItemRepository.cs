@@ -8,7 +8,7 @@ namespace Ecommerce.API.Repositories
 {
     public interface IItemRepository
     {
-        List<Item> GetItemsAsync();
-        Item GetItemByIdAsync(int Id);
+        Page<Item> GetItems();
+        Item GetItemById(int Id);
     }
 }

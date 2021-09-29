@@ -1,5 +1,6 @@
 ﻿using Ecommerce.API.DataAccess;
 using Ecommerce.API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,15 @@ namespace Ecommerce.API.Repositories
         {
             _context = context;
         }
-        public Item GetItemByIdAsync(int Id)
+        public Item GetItemById(int Id)
         {
             return _context.Items.FirstOrDefault(t => t.Id == Id);
         }
 
-        public List<Item> GetItemsAsync()
+        public Page<Item> GetItems()
         {
-            return _context.Items.ToList();
+            var result = new Page<Item> { Count = _context.Items.ToList().Count().ToString(), Value = _context.Items.ToList() };
+            return result;
         }
     }
 }

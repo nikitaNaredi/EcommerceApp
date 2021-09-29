@@ -19,12 +19,12 @@ namespace Ecommerce.API.Repositories
         };
         }
 
-        public List<Item> GetItemsAsync()
+        public Page<Item> GetItems()
         {
-            return this._item;
+            return new Page<Item> { Count = this._item.ToList().Count().ToString(), Value = this._item.ToList() };
         }
 
-        public Item GetItemByIdAsync(int Id)
+        public Item GetItemById(int Id)
         {
             return this._item.FirstOrDefault(e => e.Id == Id);
         }
