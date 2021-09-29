@@ -5,6 +5,7 @@ using ECommerce.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -47,6 +48,7 @@ namespace Ecommerce.API
             });
             var sqlConnectionString = Configuration.GetConnectionString("ECommerceConnection");
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(sqlConnectionString));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
             services.AddScoped<IItemRepository, ItemRepository>();
         }
 
@@ -62,6 +64,7 @@ namespace Ecommerce.API
             app.Use(errorWrappingMiddleware.InvokeAsync);
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

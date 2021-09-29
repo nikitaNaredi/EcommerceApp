@@ -1,4 +1,5 @@
 ﻿using Ecommerce.API.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.API.DataAccess
 {
-    public class AppDBContext: DbContext
+    public class AppDBContext: IdentityDbContext
     {
         public AppDBContext(DbContextOptions<AppDBContext> options): base(options)
         {
