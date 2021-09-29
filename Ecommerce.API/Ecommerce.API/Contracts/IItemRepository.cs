@@ -1,4 +1,5 @@
 ﻿using Ecommerce.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Ecommerce.API.Repositories
 {
     public interface IItemRepository
     {
-        Page<Item> GetItems();
-        Item GetItemById(int Id);
+        Task<ActionResult<IEnumerable<Item>>> GetItemsAsync();
+        Task<ActionResult<Item>> GetItemByIdAsync(long Id);
     }
 }

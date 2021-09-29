@@ -22,16 +22,16 @@ namespace Ecommerce.API.Controllers
 
         [HttpGet]
         [Route("items")]
-        public Page<Item> GetItemsAsync()
+        public Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
         {
-            return _itemRepository.GetItems();
+            return _itemRepository.GetItemsAsync();
         }
 
         [HttpGet]
-        [Route("items/{itemId}")]
-        public string GetItemsByIdAsync(int itemId)
+        [Route("items/{id}")]
+        public Task<ActionResult<Item>> GetItemByIdAsync(long id)
         {
-            return _itemRepository.GetItemById(itemId).Name;
+            return _itemRepository.GetItemByIdAsync(id);
         }
     }
 }
