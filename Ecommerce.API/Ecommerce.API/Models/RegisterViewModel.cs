@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.API.Models
 {
-    public class AddUser
+    public class RegisterViewModel
     {
         public long Id { get; set; }
         public string Name { get; set; }

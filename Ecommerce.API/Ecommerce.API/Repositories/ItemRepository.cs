@@ -24,9 +24,8 @@ namespace Ecommerce.API.Repositories
             {
                 return null;
             }
-
             return item;
-            //return _context.Item.FirstOrDefault(t => t.Id == Id);
+            
         }
 
         public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()

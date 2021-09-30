@@ -23,8 +23,8 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpPost]
-        [Route("addUser")]
-        public async Task<IActionResult> AddUser(AddUser model)
+        [Route("register")]
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var user = new IdentityUser();
             user.UserName = model.Name;
@@ -37,6 +37,14 @@ namespace Ecommerce.API.Controllers
             }
             return Ok();
 
+        }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return Ok();
         }
     }
 }

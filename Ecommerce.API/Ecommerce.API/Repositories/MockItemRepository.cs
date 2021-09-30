@@ -1,4 +1,5 @@
 ﻿using Ecommerce.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.API.Repositories
 {
-    public class MockItemRepository: IItemRepository
+    public class MockItemRepository
     {
         private List<Item> _item;
         public MockItemRepository()
@@ -19,10 +20,10 @@ namespace Ecommerce.API.Repositories
         };
         }
 
-        public Page<Item> GetItems()
+       /* public async Task<ActionResult<IEnumerable<Item>>> GetItems()
         {
-            return new Page<Item> { Count = this._item.ToList().Count().ToString(), Value = this._item.ToList() };
-        }
+            return await _item.ToListAsync();
+        }*/
 
         public Item GetItemById(int Id)
         {
