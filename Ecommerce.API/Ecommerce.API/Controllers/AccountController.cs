@@ -58,13 +58,18 @@ namespace Ecommerce.API.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string redirectUrl)
         {
             logger.LogInformation("User Data {0} {1} {2} ", model.UserName, model.Password, model.RememberMe);
             var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
             if (result.Succeeded)
             {
                 logger.LogInformation("Inside succeeded");
+                if (!string.IsNullOrWhiteSpace(redirectUrl) && Url.IsLocalUrl(redirectUrl))
+                {
+                    return Redirect(redirectUrl);
+                }
+
                 return Ok();
             }
             logger.LogInformation("Login failed");
