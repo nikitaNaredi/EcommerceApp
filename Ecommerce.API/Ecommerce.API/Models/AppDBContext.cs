@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.API.DataAccess
 {
-    public class AppDBContext: IdentityDbContext
+    public class AppDBContext: IdentityDbContext<ApplicationUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options): base(options)
         {
@@ -22,5 +22,7 @@ namespace Ecommerce.API.DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
+
+        public DbSet<Category> Category { get; set; }
     }
 }

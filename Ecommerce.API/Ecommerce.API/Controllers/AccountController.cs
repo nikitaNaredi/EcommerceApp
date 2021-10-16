@@ -16,11 +16,11 @@ namespace Ecommerce.API.Controllers
     [Route("api/v{version:apiVersion}")]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<AccountController> logger;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AccountController> logger)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<AccountController> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -33,7 +33,7 @@ namespace Ecommerce.API.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             
-            var user = new IdentityUser();
+            var user = new ApplicationUser();
             user.UserName = model.Name;
             user.Email = model.Email;
 

@@ -1,4 +1,5 @@
 using Ecommerce.API.DataAccess;
+using Ecommerce.API.Models;
 using Ecommerce.API.Repositories;
 using Ecommerce.Exceptions;
 using ECommerce.Exceptions;
@@ -50,7 +51,7 @@ namespace Ecommerce.API
             });
             var sqlConnectionString = Configuration.GetConnectionString("ECommerceConnection");
             services.AddDbContext<AppDBContext>(options => options.UseNpgsql(sqlConnectionString));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddMvc(config => {
                 var policy = new AuthorizationPolicyBuilder()
